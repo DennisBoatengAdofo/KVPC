@@ -171,6 +171,14 @@ Security Group: Select PrivateSG
 Click on Launch.
 
 
+Screenshots of each step
+Screenahots for each step can be located at issues.
+
+A diagram of the VPC architecture, showing the VPC, subnets, route tables, and security configurations
+A diagram of the VPC architecture, showing the VPC, subnets, route tables, and security configurations can be found at issues.
+
+
+
 Component Explanations
 VPC (Virtual Private Cloud)
 A logically isolated network within the AWS cloud where you can launch AWS resources.
