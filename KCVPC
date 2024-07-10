@@ -16,7 +16,7 @@ Click on Create Subnet.
 Fill in the details:
 Name: PublicSubnet
 VPC: KCVPC
-Availability Zone: eu-west-1a (or any one from your region)
+Availability Zone: eu-west-1a 
 IPv4 CIDR block: 10.0.1.0/24
 Click on Create.
 
@@ -27,7 +27,7 @@ Click on Create Subnet.
 Fill in the details:
 Name: PrivateSubnet
 VPC: KCVPC
-Availability Zone: eu-west-1a (preferably the same as the Public Subnet for simplicity)
+Availability Zone: eu-west-1a 
 IPv4 CIDR block: 10.0.2.0/24
 Click on Create.
 
