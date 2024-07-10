@@ -150,7 +150,7 @@ Go to the EC2 Dashboard.
 Click on Launch Instance.
 Fill in the details:
 Name: PublicInstance
-AMI: Select an appropriate AMI (e.g., Amazon Linux 2)
+AMI: Select an appropriate AMI ( Amazon )
 Instance Type: t2.micro (or any type you prefer)
 Key Pair: Select or create a key pair
 Network Settings: Select KCVPC and PublicSubnet
@@ -163,7 +163,7 @@ Go to the EC2 Dashboard.
 Click on Launch Instance.
 Fill in the details:
 Name: PrivateInstance
-AMI: Select an appropriate AMI (e.g., Amazon Linux 2)
+AMI: Select an appropriate AMI ( Amazon )
 Instance Type: t2.micro (or any type you prefer)
 Key Pair: Select or create a key pair
 Network Settings: Select KCVPC and PrivateSubnet
