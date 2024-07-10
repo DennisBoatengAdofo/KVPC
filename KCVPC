@@ -1,0 +1,197 @@
+PROCESSES INVOLVED IN SETTING UP A VIRTUAL PRIVATE CLOUD (VPC) IN AWS EU-WEST-1 (IRELAND) REGION 
+
+Create VPC
+Go to the VPC Dashboard.
+Click on Create VPC.
+Fill in the details:
+Name: KCVPC
+IPv4 CIDR block: 10.0.0.0/16
+Click on Create.
+
+
+Create Subnets
+Public Subnet
+Go to the Subnets section.
+Click on Create Subnet.
+Fill in the details:
+Name: PublicSubnet
+VPC: KCVPC
+Availability Zone: eu-west-1a (or any one from your region)
+IPv4 CIDR block: 10.0.1.0/24
+Click on Create.
+
+
+Private Subnet
+Go to the Subnets section.
+Click on Create Subnet.
+Fill in the details:
+Name: PrivateSubnet
+VPC: KCVPC
+Availability Zone: eu-west-1a (preferably the same as the Public Subnet for simplicity)
+IPv4 CIDR block: 10.0.2.0/24
+Click on Create.
+
+Configure Internet Gateway
+Go to the Internet Gateways section.
+Click on Create internet gateway.
+Name it KCVPC-IGW.
+Click on Create.
+Select the created IGW and click on Attach to VPC.
+Select KCVPC and attach.
+
+
+Configure Route Tables
+Public Route Table
+Go to the Route Tables section.
+Click on Create route table.
+Fill in the details:
+Name: PublicRouteTable
+VPC: KCVPC
+Click on Create.
+Select the created route table and go to the Routes tab.
+Click on Edit routes and add a route:
+Destination: 0.0.0.0/0
+Target: Internet Gateway (KCVPC-IGW)
+Click on Save routes.
+Go to the Subnet associations tab.
+Click on Edit subnet associations and associate PublicSubnet.
+
+
+Private Route Table
+Go to the Route Tables section.
+Click on Create route table.
+Fill in the details:
+Name: PrivateRouteTable
+VPC: KCVPC
+Click on Create.
+Go to the Subnet associations tab.
+Click on Edit subnet associations and associate PrivateSubnet.
+
+
+Configure NAT Gateway
+Go to the NAT Gateways section.
+Click on Create NAT Gateway.
+Fill in the details:
+Subnet: PublicSubnet
+Elastic IP allocation: Click on Allocate Elastic IP and select it.
+Click on Create NAT Gateway.
+Go back to the PrivateRouteTable's Routes tab.
+Click on Edit routes and add a route:
+Destination: 0.0.0.0/0
+Target: NAT Gateway (Select the created NAT Gateway)
+6. Set Up Security Groups
+Public Security Group
+Go to the Security Groups section.
+Click on Create security group.
+Fill in the details:
+Name: PublicSG
+Description: Security group for public instances
+VPC: KCVPC
+Click on Create security group.
+Select the created security group and go to the Inbound rules tab.
+Click on Edit inbound rules and add the following rules:
+Type: HTTP, Protocol: TCP, Port Range: 80, Source: 0.0.0.0/0
+Type: HTTPS, Protocol: TCP, Port Range: 443, Source: 0.0.0.0/0
+Type: SSH, Protocol: TCP, Port Range: 22, Source: Your local IP
+Click on Save rules.
+
+
+Private Security Group
+Go to the Security Groups section.
+Click on Create security group.
+Fill in the details:
+Name: PrivateSG
+Description: Security group for private instances
+VPC: KCVPC
+Click on Create security group.
+Select the created security group and go to the Inbound rules tab.
+Click on Edit inbound rules and add the following rule:
+Type: MySQL/Aurora, Protocol: TCP, Port Range: 3306, Source: PublicSG
+Click on Save rules.
+
+
+Configure Network ACLs
+Public Subnet NACL
+Go to the Network ACLs section.
+Click on Create network ACL.
+Fill in the details:
+Name: PublicNACL
+VPC: KCVPC
+Click on Create.
+Select the created NACL and go to the Inbound rules tab.
+Click on Edit inbound rules and add the following rules:
+Rule #: 100, Type: HTTP, Protocol: TCP, Port Range: 80, Source: 0.0.0.0/0, Allow
+Rule #: 110, Type: HTTPS, Protocol: TCP, Port Range: 443, Source: 0.0.0.0/0, Allow
+Rule #: 120, Type: SSH, Protocol: TCP, Port Range: 22, Source: 0.0.0.0/0, Allow
+Go to the Outbound rules tab and click on Edit outbound rules.
+Add the following rule:
+Rule #: 100, Type: All Traffic, Protocol: All, Port Range: All, Source: 0.0.0.0/0, Allow
+
+
+Private Subnet NACL
+Go to the Network ACLs section.
+Click on Create network ACL.
+Fill in the details:
+Name: PrivateNACL
+VPC: KCVPC
+Click on Create.
+Select the created NACL and go to the Inbound rules tab.
+Click on Edit inbound rules and add the following rule:
+Rule #: 100, Type: All Traffic, Protocol: All, Port Range: All, Source: PublicSubnet CIDR, Allow
+Go to the Outbound rules tab and click on Edit outbound rules.
+Add the following rules:
+Rule #: 100, Type: All Traffic, Protocol: All, Port Range: All, Source: 0.0.0.0/0, Allow
+
+
+
+Deploy Instances
+Public Instance
+Go to the EC2 Dashboard.
+Click on Launch Instance.
+Fill in the details:
+Name: PublicInstance
+AMI: Select an appropriate AMI (e.g., Amazon Linux 2)
+Instance Type: t2.micro (or any type you prefer)
+Key Pair: Select or create a key pair
+Network Settings: Select KCVPC and PublicSubnet
+Security Group: Select PublicSG
+Click on Launch.
+
+
+Private Instance
+Go to the EC2 Dashboard.
+Click on Launch Instance.
+Fill in the details:
+Name: PrivateInstance
+AMI: Select an appropriate AMI (e.g., Amazon Linux 2)
+Instance Type: t2.micro (or any type you prefer)
+Key Pair: Select or create a key pair
+Network Settings: Select KCVPC and PrivateSubnet
+Security Group: Select PrivateSG
+Click on Launch.
+
+
+Component Explanations
+VPC (Virtual Private Cloud)
+A logically isolated network within the AWS cloud where you can launch AWS resources.
+Subnets
+
+Public Subnet: A subnet that has access to the internet through an Internet Gateway.
+Private Subnet: A subnet that doesn't have direct access to the internet.
+
+Internet Gateway (IGW)
+A gateway that allows instances in the public subnet to connect to the internet.
+
+Route Tables
+Public Route Table: Manages routing for the public subnet, including a route to the IGW for internet access.
+Private Route Table: Manages routing for the private subnet without direct internet access.
+
+NAT Gateway
+Allows instances in the private subnet to connect to the internet while preventing inbound traffic from the internet.
+
+Security Groups
+Virtual firewalls for instances to control inbound and outbound traffic.
+
+Network ACLs
+Stateless, subnet-level firewalls to control inbound and outbound traffic at the subnet level.
+EC2 Instances
