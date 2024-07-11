@@ -112,7 +112,7 @@ This guide details the steps to design and set up a Virtual Private Cloud (VPC) 
   
 
 **6.SET UP SECURITY GROUPS**
-_*Public Security Group_
+* Public Security Group
 * Go to the Security Groups section.
 * Click on Create security group.
 * Fill in the details:
@@ -147,7 +147,7 @@ _**Private Security Group**_
 
 
 **7. CONFIGURE NETWORK ACLs**
-_**Public Subnet NACL**_
+* Public Subnet NACL
 * Go to the Network ACLs section.
 * Click on Create network ACL.
 * Fill in the details:
@@ -184,7 +184,7 @@ _**Private Subnet NACL**_
 
 
 **8. DEPLOY INSTANCES**
-*_ Public Instance_
+* Public Instance
 * Go to the EC2 Dashboard.
 * Click on Launch Instance.
 * Fill in the details:
