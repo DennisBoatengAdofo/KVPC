@@ -168,13 +168,10 @@ Security Group: Select PrivateSG
 Click on Launch.
 
 
-Screenshots of each step
+#Screenshots of each step
 Screenahots for each step can be located at issues.
 
-A diagram of the VPC architecture, showing the VPC, subnets, route tables, and security configurations
-A diagram of the VPC architecture, showing the VPC, subnets, route tables, and security configurations can be found at issues.
-
-
+#A diagram of the VPC architecture, showing the VPC, subnets, route tables, and security configurations
 
 #COMPONENTS EXPLANATION
 VPC (Virtual Private Cloud)
@@ -191,12 +188,9 @@ Route Tables
 Public Route Table: Manages routing for the public subnet, including a route to the IGW for internet access.
 Private Route Table: Manages routing for the private subnet without direct internet access.
 
-NAT Gateway
-Allows instances in the private subnet to connect to the internet while preventing inbound traffic from the internet.
+NAT Gateway: Allows instances in the private subnet to connect to the internet while preventing inbound traffic from the internet.
 
-Security Groups
-Virtual firewalls for instances to control inbound and outbound traffic.
+Security Groups: Virtual firewalls for instances to control inbound and outbound traffic.
 
-Network ACLs
-Stateless, subnet-level firewalls to control inbound and outbound traffic at the subnet level.
-EC2 Instances
+Network ACLs: Stateless, subnet-level firewalls to control inbound and outbound traffic at the subnet level.
+
