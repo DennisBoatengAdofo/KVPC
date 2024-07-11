@@ -1,6 +1,6 @@
-PROCESSES INVOLVED IN SETTING UP A VIRTUAL PRIVATE CLOUD (VPC) IN AWS EU-WEST-1 (IRELAND) REGION 
+#PROCESSES INVOLVED IN SETTING UP A VIRTUAL PRIVATE CLOUD (VPC) IN AWS EU-WEST-1 (IRELAND) REGION 
 
-Create VPC
+#CREATE VPC
 Go to the VPC Dashboard.
 Click on Create VPC.
 Fill in the details:
@@ -8,9 +8,8 @@ Name: KCVPC
 IPv4 CIDR block: 10.0.0.0/16
 Click on Create.
 
-
-Create Subnets
-Public Subnet
+#CREATE SUBNETS
+#Public Subnet
 Go to the Subnets section.
 Click on Create Subnet.
 Fill in the details:
@@ -21,7 +20,7 @@ IPv4 CIDR block: 10.0.1.0/24
 Click on Create.
 
 
-Private Subnet
+#PRIVATE SUBNET
 Go to the Subnets section.
 Click on Create Subnet.
 Fill in the details:
@@ -31,7 +30,7 @@ Availability Zone: eu-west-1a
 IPv4 CIDR block: 10.0.2.0/24
 Click on Create.
 
-Configure Internet Gateway
+#CONFIGURE INTERNET GATEWAY
 Go to the Internet Gateways section.
 Click on Create internet gateway.
 Name it KCVPC-IGW.
@@ -40,8 +39,8 @@ Select the created IGW and click on Attach to VPC.
 Select KCVPC and attach.
 
 
-Configure Route Tables
-Public Route Table
+#CONFIGURE ROUTE TABLES
+#Public Route Table
 Go to the Route Tables section.
 Click on Create route table.
 Fill in the details:
@@ -56,8 +55,7 @@ Click on Save routes.
 Go to the Subnet associations tab.
 Click on Edit subnet associations and associate PublicSubnet.
 
-
-Private Route Table
+#Private Route Table
 Go to the Route Tables section.
 Click on Create route table.
 Fill in the details:
@@ -68,7 +66,7 @@ Go to the Subnet associations tab.
 Click on Edit subnet associations and associate PrivateSubnet.
 
 
-Configure NAT Gateway
+#CONFIGURE NAT GATEWAY
 Go to the NAT Gateways section.
 Click on Create NAT Gateway.
 Fill in the details:
@@ -79,8 +77,9 @@ Go back to the PrivateRouteTable's Routes tab.
 Click on Edit routes and add a route:
 Destination: 0.0.0.0/0
 Target: NAT Gateway (Select the created NAT Gateway)
-6. Set Up Security Groups
-Public Security Group
+
+#SET UP SECURITY GROUPS
+#Public Security Group
 Go to the Security Groups section.
 Click on Create security group.
 Fill in the details:
@@ -96,7 +95,7 @@ Type: SSH, Protocol: TCP, Port Range: 22, Source: Your local IP
 Click on Save rules.
 
 
-Private Security Group
+#Private Security Group
 Go to the Security Groups section.
 Click on Create security group.
 Fill in the details:
@@ -110,8 +109,8 @@ Type: MySQL/Aurora, Protocol: TCP, Port Range: 3306, Source: PublicSG
 Click on Save rules.
 
 
-Configure Network ACLs
-Public Subnet NACL
+#CONFIGURE NETWORK ACLs
+#Public Subnet NACL
 Go to the Network ACLs section.
 Click on Create network ACL.
 Fill in the details:
@@ -127,8 +126,7 @@ Go to the Outbound rules tab and click on Edit outbound rules.
 Add the following rule:
 Rule #: 100, Type: All Traffic, Protocol: All, Port Range: All, Source: 0.0.0.0/0, Allow
 
-
-Private Subnet NACL
+#Private Subnet NACL
 Go to the Network ACLs section.
 Click on Create network ACL.
 Fill in the details:
@@ -143,8 +141,7 @@ Add the following rules:
 Rule #: 100, Type: All Traffic, Protocol: All, Port Range: All, Source: 0.0.0.0/0, Allow
 
 
-
-Deploy Instances
+#DEPLOY INSTANCES
 Public Instance
 Go to the EC2 Dashboard.
 Click on Launch Instance.
@@ -158,7 +155,7 @@ Security Group: Select PublicSG
 Click on Launch.
 
 
-Private Instance
+#Private Instance
 Go to the EC2 Dashboard.
 Click on Launch Instance.
 Fill in the details:
@@ -179,7 +176,7 @@ A diagram of the VPC architecture, showing the VPC, subnets, route tables, and s
 
 
 
-Component Explanations
+#COMPONENTS EXPLANATION
 VPC (Virtual Private Cloud)
 A logically isolated network within the AWS cloud where you can launch AWS resources.
 Subnets
